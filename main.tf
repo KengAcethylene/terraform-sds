@@ -8,55 +8,51 @@ terraform {
 }
 
 provider "aws" {
-  profile = "default"
   region = var.region
 }
 
-resource "aws_security_group" "db" {
-  name = "db"
+resource "aws_security_group" "sg_db" {
+  name = "sg_db"
 }
 
-resource "aws_security_group_rule" "https" {
-  type = "ingress"
-  from_port = 443
-  to_port = 443
-  protocol = "tcp"
-  cidr_blocks = [ "0.0.0.0/0" ]
-  security_group_id = aws_security_group.db.id
-}
-
-resource "aws_security_group_rule" "ssh" {
+resource "aws_security_group_rule" "SSH" {
   type = "ingress"
   from_port = 22
   to_port = 22
   protocol = "tcp"
-  cidr_blocks = [ "0.0.0.0/0" ]
-  security_group_id = aws_security_group.db.id
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.sg_db.id
 }
 
-resource "aws_key_pair" "sds" {
-  
-  key_name = "sds"
-  public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPOZhrLTc0gO8vpyPH++r4sEDeCji7N1y0D5M+J/+AXQ keng@Keng-Acethylene"
+resource "aws_security_group_rule" "ALLOW_ALL" {
+  type = "egress"
+  from_port = 0
+  to_port = 0
+  protocol = "-1"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.sg_db.id
 }
+
+data "cloudinit_config" "database_init" {
+  gzip = false
+  base64_encode = false
+  part {
+    content_type = "text/cloud-config"
+    content = file("./database_init.yml")
+  }
+}
+
+
 
 resource "aws_instance" "mariadb" {
-
   ami = var.ami
-  key_name = aws_key_pair.sds.key_name
   instance_type = var.instance_type
-  vpc_security_group_ids = [aws_security_group.db.id]
+  vpc_security_group_ids = [aws_security_group.sg_db.id]
+
+  user_data = data.cloudinit_config.database_init.rendered
   tags = var.tags
-  connection {
-    type = "ssh"
-    host = self.public_ip
-    user = "ubuntu"
-    private_key = file("C:\\Users\\Keng\\.ssh\\sds.pem")
-  }
-  provisioner "remote-exec" {
-    inline = [
-      "touch hello.txt",
-      "echo helloworld remote provisioner >> hello.txt",
-    ]
-  }
+}
+
+output "public_ip" {
+  value = aws_instance.mariadb.public_ip
 }

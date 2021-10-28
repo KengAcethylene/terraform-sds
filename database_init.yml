@@ -1,0 +1,22 @@
+#cloud-config
+groups:
+  - ubuntu: [root, sys]
+  - hashicorp
+
+users:
+  - default
+  - name: terraform
+    gecos: terraform
+    shell: /bin/bash
+    primary_group: hashicorp
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    lock_passwd: false
+    ssh-authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFYGg5fSSDVrfjRjsln+VmPRqGWM6nhPtdRHpJDBuece keng2@KengAcethylene-LAPTOP
+
+repo_update: true
+repo_upgrade: all
+
+packages:
+  - mariadb-server

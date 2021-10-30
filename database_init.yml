@@ -13,7 +13,7 @@ users:
     groups: users, admin
     lock_passwd: false
     ssh-authorized_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFYGg5fSSDVrfjRjsln+VmPRqGWM6nhPtdRHpJDBuece keng2@KengAcethylene-LAPTOP
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC7QWkhpAxrUfntxfIl3aoS3mu2El5FbaDBlBseSLve4 keng2@KengAcethylene-LAPTOP
 
 repo_update: true
 repo_upgrade: all

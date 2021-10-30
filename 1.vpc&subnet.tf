@@ -60,3 +60,8 @@ resource "aws_key_pair" "key" {
     key_name = "db_instance_key"
     public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC7QWkhpAxrUfntxfIl3aoS3mu2El5FbaDBlBseSLve4 keng2@KengAcethylene-LAPTOP"
 }
+
+
+output "public_ip" {
+    value = aws_instance.nextcloud.public_ip
+}

@@ -28,3 +28,7 @@ variable "NEXTCLOUD_PRIVATE_IP" {
 variable "DATABASE_PRIVATE_IP" {
   
 }
+
+variable "DB_DATABASE" {
+  
+}

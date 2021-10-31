@@ -30,6 +30,7 @@ data "template_file" "database_user_data" {
     DB_USER = var.DB_USER
     NEXTCLOUD_PRIVATE_IP = var.NEXTCLOUD_PRIVATE_IP
     DB_PASSWORD = var.DB_PASSWORD
+    DB_DATABASE = var.DB_DATABASE
   }
 }
 

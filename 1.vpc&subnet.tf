@@ -47,6 +47,15 @@ resource "aws_internet_gateway" "igw" {
     }
 }
 
+resource "aws_nat_gateway" "ngw" {
+    allocation_id = aws_eip.public_database_ip.id
+    subnet_id = aws_subnet.public_subnet.id
+    
+    tags = {
+        "Name" : "sds-ngw"
+    }
+}
+
 
 resource "aws_eip" "public_ip" {
     vpc = true
@@ -54,6 +63,10 @@ resource "aws_eip" "public_ip" {
         aws_internet_gateway.igw
     ]
     network_interface = aws_network_interface.nextcloud_public_eni.id
+}
+
+resource "aws_eip" "public_database_ip" {
+    vpc = true
 }
 
 resource "aws_key_pair" "key" {
@@ -64,4 +77,12 @@ resource "aws_key_pair" "key" {
 
 output "public_ip" {
     value = aws_instance.nextcloud.public_ip
+}
+
+output "nextcloud_private_ip" {
+    value = aws_instance.nextcloud.private_ip
+}
+
+output "database_private_ip" {
+    value = aws_instance.database.private_ip
 }

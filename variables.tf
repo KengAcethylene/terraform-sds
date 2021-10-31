@@ -12,3 +12,19 @@ variable "tags" {
 variable "app" {
   
 }
+
+variable "DB_USER" {
+  
+}
+
+variable "DB_PASSWORD" {
+  
+}
+
+variable "NEXTCLOUD_PRIVATE_IP" {
+  
+}
+
+variable "DATABASE_PRIVATE_IP" {
+  
+}

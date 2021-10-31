@@ -1,8 +1,5 @@
 data "template_file" "nextcloud_user_data" {
-  template = file("nextcloud_init.yml")
-  vars = {
-    app = var.app
-  }
+  template = file("test_script.sh")
 }
 
 resource "aws_instance" "nextcloud" {
@@ -28,9 +25,11 @@ resource "aws_instance" "nextcloud" {
 }
 
 data "template_file" "database_user_data" {
-  template = file("database_init.yml")
+  template = file("database_script.sh")
   vars = {
-    app = var.app
+    DB_USER = var.DB_USER
+    NEXTCLOUD_PRIVATE_IP = var.NEXTCLOUD_PRIVATE_IP
+    DB_PASSWORD = var.DB_PASSWORD
   }
 }
 

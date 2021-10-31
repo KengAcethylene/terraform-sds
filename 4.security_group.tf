@@ -63,7 +63,14 @@ resource "aws_security_group_rule" "private_local_rule" {
     security_group_id = aws_security_group.private_instance.id
 }
 
-
+resource "aws_security_group_rule" "private_ssh_rule" {
+    type = "ingress"
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    self = true
+    security_group_id = aws_security_group.private_instance.id
+}
 
 resource "aws_security_group_rule" "private_instance_all_rule" {
     type = "egress"
@@ -85,15 +92,6 @@ resource "aws_security_group_rule" "private_database_local_rule" {
     to_port = 0
     protocol = "-1"
     self = true
-    security_group_id = aws_security_group.private_database.id
-}
-
-resource "aws_security_group_rule" "private_database_ssh_rule" {
-    type = "ingress"
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
     security_group_id = aws_security_group.private_database.id
 }
 

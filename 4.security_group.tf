@@ -63,6 +63,15 @@ resource "aws_security_group_rule" "private_local_rule" {
     security_group_id = aws_security_group.private_instance.id
 }
 
+resource "aws_security_group_rule" "private_ssh_rule" {
+    type = "ingress"
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    self = true
+    security_group_id = aws_security_group.private_instance.id
+}
+
 resource "aws_security_group_rule" "private_instance_all_rule" {
     type = "egress"
     from_port = 0

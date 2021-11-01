@@ -1,5 +1,14 @@
 data "template_file" "nextcloud_user_data" {
-  template = file("test_script.sh")
+  template = file("nextcloud_script.sh")
+  vars = {
+    DB_DATABASE = var.DB_DATABASE
+    DB_USER = var.DB_USER
+    DB_PASSWORD = var.DB_PASSWORD
+    NEXTCLOUD_PRIVATE_IP = var.NEXTCLOUD_PRIVATE_IP
+    ADMIN_PASSWORD = var.ADMIN_PASSWORD
+    DATABASE_PRIVATE_IP = var.DATABASE_PRIVATE_IP
+    PUBLIC_IP = aws_eip.public_ip.public_ip
+  }
 }
 
 resource "aws_instance" "nextcloud" {

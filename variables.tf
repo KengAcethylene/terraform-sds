@@ -21,6 +21,9 @@ variable "DB_PASSWORD" {
   
 }
 
+variable "DB_DATABASE" {
+  
+}
 variable "NEXTCLOUD_PRIVATE_IP" {
   
 }
@@ -29,6 +32,6 @@ variable "DATABASE_PRIVATE_IP" {
   
 }
 
-variable "DB_DATABASE" {
+variable "ADMIN_PASSWORD" {
   
 }

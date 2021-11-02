@@ -8,6 +8,11 @@ data "template_file" "nextcloud_user_data" {
     ADMIN_PASSWORD = var.ADMIN_PASSWORD
     DATABASE_PRIVATE_IP = var.DATABASE_PRIVATE_IP
     PUBLIC_IP = aws_eip.public_ip.public_ip
+    BUCKET_NAME = aws_s3_bucket.nextcloud_s3.bucket
+    ACCESS_ID = aws_iam_access_key.nextcloud_key.id
+    ACCESS_SECRET = aws_iam_access_key.nextcloud_key.secret
+    BUCKET_DOMAIN = aws_s3_bucket.nextcloud_s3.bucket_domain_name
+    REGION = var.region
   }
 }
 

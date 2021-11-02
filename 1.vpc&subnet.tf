@@ -78,11 +78,3 @@ resource "aws_key_pair" "key" {
 output "public_ip" {
     value = aws_instance.nextcloud.public_ip
 }
-
-output "nextcloud_private_ip" {
-    value = aws_instance.nextcloud.private_ip
-}
-
-output "database_private_ip" {
-    value = aws_instance.database.private_ip
-}

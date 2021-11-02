@@ -29,25 +29,34 @@ echo "Alias /nextcloud "/var/www/nextcloud/"
 
 a2ensite nextcloud.conf
 a2enmod rewrite
+a2enmod ssl
+a2ensite default-ssl
 
 service apache2 restart
 
 #nextcloud config
 cd /var/www/nextcloud
 
+echo "<?php
+\$CONFIG = array (
+  'objectstore' => array(
+        'class' => '\\OC\\Files\\ObjectStore\\S3',
+        'arguments' => array(
+                'bucket' => '${BUCKET_NAME}',
+                'key'    => '${ACCESS_ID}',
+                'secret' => '${ACCESS_SECRET}',
+                'hostname' => '${BUCKET_DOMAIN}',
+                'port' => 443,
+                'use_ssl' => true,
+                'region' => '${REGION}',
+                'use_path_style'=>true,
+        ),
+  ),
+);" > ./config/config.php
+
 php occ maintenance:install --database "mysql" --database-name "${DB_DATABASE}"  --database-user "${DB_USER}" --database-pass "${DB_PASSWORD}" --admin-user "admin" --admin-pass "${ADMIN_PASSWORD}" --database-host "${DATABASE_PRIVATE_IP}"
 
 php occ config:system:set trusted_domains 1 --value=${PUBLIC_IP}
-
-# php occ config:system:set objectstore class --value=\\OC\\Files\\ObjectStore\\S3
-# php occ config:system:set objectstore arguments bucket --value=nextcloud
-# php occ config:system:set objectstore arguments autocreate --value=true --type=boolean
-# php occ config:system:set objectstore arguments key --value=true
-# php occ config:system:set objectstore arguments secret --value=true
-# php occ config:system:set objectstore arguments hostname --value=example.com
-# php occ config:system:set objectstore arguments port --value=443
-# php occ config:system:set objectstore arguments use_ssl --value=true --type=boolean
-# php occ config:system:set objectstore arguments region --value=optional
 
 chown -R www-data:www-data /var/www/nextcloud
 

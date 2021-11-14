@@ -1,6 +1,7 @@
 resource "aws_s3_bucket" "nextcloud_s3" {
   bucket = "nextcloud-${random_id.bucket_name_random.hex}"
   acl = "private"
+  force_destroy = true
   tags = {
     "Name" = "nextcloud-s3"
   }

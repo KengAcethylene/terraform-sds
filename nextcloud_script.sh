@@ -45,7 +45,6 @@ echo "<?php
                 'bucket' => '${BUCKET_NAME}',
                 'key'    => '${ACCESS_ID}',
                 'secret' => '${ACCESS_SECRET}',
-                'hostname' => '${BUCKET_DOMAIN}',
                 'port' => 443,
                 'use_ssl' => true,
                 'region' => '${REGION}',

@@ -36,6 +36,11 @@ resource "aws_instance" "nextcloud" {
     tags = {
       "Name" = "nextcloud"
     }
+
+    depends_on = [
+      aws_s3_bucket.nextcloud_s3,
+      aws_instance.database
+    ]
 }
 
 data "template_file" "database_user_data" {

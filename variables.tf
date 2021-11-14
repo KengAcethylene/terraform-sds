@@ -7,28 +7,22 @@ variable "availability_zone" {
 variable "ami" {
 }
 
-variable "instance_type" {
+variable "bucket_name" {
 }
 
-variable "tags" { 
+variable "database_user" {
 }
 
-variable "DB_USER" {
+variable "database_pass" {
 }
 
-variable "DB_PASSWORD" {
+variable "database_name" {
 }
 
-variable "DB_DATABASE" {
+variable "admin_user" {
 }
 
-variable "NEXTCLOUD_PRIVATE_IP" {
-}
-
-variable "DATABASE_PRIVATE_IP" {
-}
-
-variable "ADMIN_PASSWORD" {
+variable "admin_pass" {
 }
 
 variable "PUBLIC_KEY_SSH" {

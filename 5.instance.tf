@@ -1,12 +1,11 @@
 data "template_file" "nextcloud_user_data" {
   template = file("nextcloud_script.sh")
   vars = {
-    DB_DATABASE = var.DB_DATABASE
-    DB_USER = var.DB_USER
-    DB_PASSWORD = var.DB_PASSWORD
-    NEXTCLOUD_PRIVATE_IP = var.NEXTCLOUD_PRIVATE_IP
-    ADMIN_PASSWORD = var.ADMIN_PASSWORD
-    DATABASE_PRIVATE_IP = var.DATABASE_PRIVATE_IP
+    database_name = var.database_name
+    database_user = var.database_user
+    database_pass = var.database_pass
+    admin_user = var.admin_user
+    admin_pass = var.admin_pass
     PUBLIC_IP = aws_eip.public_ip.public_ip
     BUCKET_NAME = aws_s3_bucket.nextcloud_s3.bucket
     ACCESS_ID = aws_iam_access_key.nextcloud_key.id
@@ -18,7 +17,7 @@ data "template_file" "nextcloud_user_data" {
 
 resource "aws_instance" "nextcloud" {
     ami = var.ami
-    instance_type = var.instance_type
+    instance_type = "t2.micro"
     key_name = aws_key_pair.key.key_name
     
     network_interface {
@@ -46,16 +45,15 @@ resource "aws_instance" "nextcloud" {
 data "template_file" "database_user_data" {
   template = file("database_script.sh")
   vars = {
-    DB_USER = var.DB_USER
-    NEXTCLOUD_PRIVATE_IP = var.NEXTCLOUD_PRIVATE_IP
-    DB_PASSWORD = var.DB_PASSWORD
-    DB_DATABASE = var.DB_DATABASE
+    database_user = var.database_user
+    database_pass = var.database_pass
+    database_name = var.database_name
   }
 }
 
 resource "aws_instance" "database" {
     ami = var.ami
-    instance_type = var.instance_type
+    instance_type = "t2.micro"
     key_name = aws_key_pair.key.key_name
     
     network_interface {

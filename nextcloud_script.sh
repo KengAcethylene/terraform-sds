@@ -53,7 +53,7 @@ echo "<?php
   ),
 );" > ./config/config.php
 
-php occ maintenance:install --database "mysql" --database-name "${DB_DATABASE}"  --database-user "${DB_USER}" --database-pass "${DB_PASSWORD}" --admin-user "admin" --admin-pass "${ADMIN_PASSWORD}" --database-host "${DATABASE_PRIVATE_IP}"
+php occ maintenance:install --database "mysql" --database-name "${database_name}"  --database-user "${database_user}" --database-pass "${database_pass}" --admin-user "${admin_user}" --admin-pass "${admin_pass}" --database-host "192.168.2.101"
 
 php occ config:system:set trusted_domains 1 --value=${PUBLIC_IP}
 

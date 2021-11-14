@@ -1,0 +1,12 @@
+region              = "ap-southeast-1"
+availability_zone   = "ap-southeast-1a"
+ami                 = "ami-0fed77069cd5a6d6c"
+bucket_name         = "nextcloud"
+database_name       = "nextcloud"
+database_user       = "keng"
+database_pass       = "12345678"
+admin_user          = "admin"
+admin_pass          = "acethylene"
+
+//add ssh public key for debug
+PUBLIC_KEY_SSH      = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC7QWkhpAxrUfntxfIl3aoS3mu2El5FbaDBlBseSLve4 keng2@KengAcethylene-LAPTOP"

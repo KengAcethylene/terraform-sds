@@ -18,7 +18,6 @@ data "template_file" "nextcloud_user_data" {
 resource "aws_instance" "nextcloud" {
     ami = var.ami
     instance_type = "t2.micro"
-    key_name = aws_key_pair.key.key_name
     
     network_interface {
       network_interface_id = aws_network_interface.nextcloud_public_eni.id
@@ -49,7 +48,6 @@ data "template_file" "database_user_data" {
 resource "aws_instance" "database" {
     ami = var.ami
     instance_type = "t2.micro"
-    key_name = aws_key_pair.key.key_name
     
     network_interface {
       network_interface_id = aws_network_interface.database_nat_eni.id

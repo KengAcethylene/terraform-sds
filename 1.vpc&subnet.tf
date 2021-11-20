@@ -69,12 +69,6 @@ resource "aws_eip" "public_database_ip" {
     vpc = true
 }
 
-resource "aws_key_pair" "key" {
-    key_name = "db_instance_key"
-    public_key = var.PUBLIC_KEY_SSH
-}
-
-
 output "public_ip" {
     value = aws_instance.nextcloud.public_ip
 }

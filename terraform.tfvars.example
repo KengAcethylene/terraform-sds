@@ -7,6 +7,3 @@ database_user       = "keng"
 database_pass       = "12345678"
 admin_user          = "admin"
 admin_pass          = "acethylene"
-
-//add ssh public key for debug
-PUBLIC_KEY_SSH      = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC7QWkhpAxrUfntxfIl3aoS3mu2El5FbaDBlBseSLve4 keng2@KengAcethylene-LAPTOP"
